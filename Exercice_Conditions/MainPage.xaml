@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="Exercice_Conditions.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Exercice_Conditions"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <CheckBox x:Name="HasTail" Content="CheckBox" HorizontalAlignment="Left" Margin="660,535,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="HasMustache" Content="CheckBox" HorizontalAlignment="Left" Margin="665,583,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="AnimalType" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="585,313,0,0" SelectionChanged="AnimalType_SelectionChanged"/>
+        <Button x:Name="CreateAnimal" Content="Button" Height="100" Width="100" Margin="600,715,0,265"/>
+        <TextBox x:Name="NomAnimal" TextWrapping="Wrap" Text="TextBox" Margin="320,185,1500,795"/>
+        <TextBox x:Name="NbPattesAnimal" TextWrapping="Wrap" Text="TextBox" Margin="835,160,985,820"/>
+        <TextBox x:Name="NbYeuxAnimal" TextWrapping="Wrap" Text="TextBox" Margin="675,160,1145,820"/>
+        <TextBox x:Name="TailleAnimal" TextWrapping="Wrap" Text="TextBox" Margin="475,160,1345,820"/>
+
+    </Grid>
+</Page>
