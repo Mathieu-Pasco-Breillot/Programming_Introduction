@@ -1,0 +1,26 @@
+DateTime johnBirthday = new DateTime(1987, 4, 13);
+DateTime now = DateTime.Now;
+
+int johnAge = now.Year - johnBirthday.Year;
+int deltaAnniversaryDay = johnBirthday.Day - now.Day;
+int deltaAnniversaryMonth = johnBirthday.Month - now.Month;
+
+if (deltaAnniversaryMonth == 0)
+{
+    if (johnBirthday.CompareTo(now) < 0)
+    {
+        tbDisplay.Text = $"John, tu va avoir {johnAge} ans dans {deltaAnniversaryDay} jours !";
+    }
+    else if (johnBirthday.CompareTo(now) > 0)
+    {
+        tbDisplay.Text = $"Tu as {johnAge} ans depuis {Math.Abs(deltaAnniversaryDay)} jours John, félicitations !";
+    }
+    else
+    {
+        tbDisplay.Text = $"Joyeux Anniversaire John, tu as {johnAge} ans aujourd'hui !";
+    }
+}
+else
+{
+    tbDisplay.Text = $"Ca n'est pas encore ton anniversaire John, soit patient !";
+}
