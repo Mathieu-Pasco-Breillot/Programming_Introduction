@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programming_Introduction.Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programming_Introduction.Transverse", "Programming_Introduction.Transverse\Programming_Introduction.Transverse.csproj", "{68B71D4C-4C74-455A-B7C5-A6A5643D568D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributeurDeBillets", "DistributeurDeBillets/DistributeurDeBillets.csproj", "{5220F75F-D579-45C0-9F33-5CC88A29C857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
