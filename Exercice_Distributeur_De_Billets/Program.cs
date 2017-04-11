@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Media;
 
 namespace DistributeurDeBillets
 {
     internal class Program
     {
-        private static Random r = new Random();
-
         private static bool conversionPassed = false;
 
         public static void Main(string[] args)
         {
-            int accountBalande = r.Next(-1000, 1000);
+            Random r = new Random();
+
+            int accountBalance = r.Next(-1000, 1000);
 
             Console.WriteLine("Bonjour, veuillez insérer votre carte.");
 
@@ -39,7 +40,7 @@ namespace DistributeurDeBillets
 
             conversionPassed = false;
 
-            Console.WriteLine("Quel opération souhaitez-vous effectuer ?\n 1. Retrait\n 2. Dépôt");
+            Console.WriteLine("Quel opération souhaitez-vous effectuer ?\n 1. Retrait\n 2. Dépôt\n 3. Consulter mon solde");
 
             string operation = Console.ReadLine();
             operation = CheckLength(operation, 1);
@@ -71,16 +72,20 @@ namespace DistributeurDeBillets
                         Console.WriteLine("Quel montant désirez-vous retirer ?");
                         Console.ReadLine();
                         Console.WriteLine("Interrogation du compte en cours...");
-                        System.Threading.Thread.Sleep(5000);
-                        Console.WriteLine("Pour obtenir vos billets, merci de récupérer votre carte.");
+                        System.Threading.Thread.Sleep(2000);                        
+                        StartBip();
                         break;
                     case 2:
                         Console.WriteLine("Nous sommes désolé, le dépôt d'argent n'est pas encore disponible sur ce DAB.\n");
                         previousChoice = choice;
-                        OperationChoice(out operation, out choice);                        
+                        OperationChoice(out operation, out choice);
+                        break;
+                    case 3:
+                        previousChoice = choice;
+                        Console.WriteLine($"Le solde de votre compte est : {accountBalance} €");
                         break;
                     default:
-                        Console.WriteLine("Votre choix doit être 1 ou 2 uniquement.\n");
+                        Console.WriteLine("Votre choix doit être 1, 2 ou 3 uniquement.\n");
                         previousChoice = choice;
                         OperationChoice(out operation, out choice);
                         break;
@@ -90,9 +95,21 @@ namespace DistributeurDeBillets
             WaitForEnterKey();
         }
 
+        private static void StartBip()
+        {
+            Console.WriteLine("Pour obtenir vos billets, merci de récupérer votre carte.");
+            using (SoundPlayer player = new SoundPlayer())
+            {
+                player.SoundLocation = Environment.CurrentDirectory + "\\Bip.wav";
+                // Use PlaySync to load and then play the sound.
+                // ... The program will pause until the sound is complete.
+                player.Play();
+            }
+        }
+
         private static void OperationChoice(out string operation, out short choice)
         {
-            Console.WriteLine("Quel opération souhaitez-vous effectuer ?\n 1. Retrait\n 2. Dépôt\n");
+            Console.WriteLine("Quel opération souhaitez-vous effectuer ?\n 1. Retrait\n 2. Dépôt\n 3. Consulter mon solde");
 
             operation = Console.ReadLine();
             operation = CheckLength(operation, 1);
@@ -126,7 +143,7 @@ namespace DistributeurDeBillets
         {
             while (value.Length != length)
             {
-                Console.WriteLine("Merci de saisir 4 chiffres.");
+                Console.WriteLine($"Merci de saisir {length} chiffres.");
                 value = Console.ReadLine();
             }
 
