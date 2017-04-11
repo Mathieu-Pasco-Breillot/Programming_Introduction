@@ -1,8 +1,0 @@
-﻿<Application
-    x:Class="Programming_Introduction.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Programming_Introduction"
-    RequestedTheme="Light">
-
-</Application>

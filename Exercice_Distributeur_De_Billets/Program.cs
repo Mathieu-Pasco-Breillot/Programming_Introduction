@@ -138,6 +138,7 @@ namespace DistributeurDeBillets
         /// </summary>
         private static void WaitForEnterKey()
         {
+            Console.WriteLine("\nAppuyer sur Entré pour continuer.\n");
             while (Console.ReadKey().Key != ConsoleKey.Enter)
             {
 
