@@ -5,18 +5,22 @@ namespace DistributeurDeBillets
 {
     internal class Program
     {
+        private static Random r = new Random();
+
+        private static bool conversionPassed = false;
+
         public static void Main(string[] args)
         {
-            Console.WriteLine("Bonjour, veuillez insérer votre carte");
+            int accountBalande = r.Next(-1000, 1000);
+
+            Console.WriteLine("Bonjour, veuillez insérer votre carte.");
 
             WaitForEnterKey();
 
             Console.WriteLine("Merci de saisir votre code secret à 4 chiffres.");
 
-            var codeSecret = Console.ReadLine();
-            codeSecret = CheckLength(codeSecret);
-
-            bool conversionPassed = false;
+            string codeSecret = Console.ReadLine();
+            codeSecret = CheckLength(codeSecret, 4);
 
             while (!conversionPassed)
             {
@@ -29,36 +33,104 @@ namespace DistributeurDeBillets
                 {
                     Console.WriteLine("Merci de saisir uniquement des chiffres.");
                     codeSecret = Console.ReadLine();
-                    codeSecret = CheckLength(codeSecret);
+                    codeSecret = CheckLength(codeSecret, 4);
                 }
             }
 
-            Console.WriteLine("Quel opération souhaitez-vous effectuer ?");
+            conversionPassed = false;
 
-            Console.ReadLine();
+            Console.WriteLine("Quel opération souhaitez-vous effectuer ?\n 1. Retrait\n 2. Dépôt");
 
-            Console.WriteLine("Quel montant désirez-vous retirer ?");
+            string operation = Console.ReadLine();
+            operation = CheckLength(operation, 1);
+            short choice = -1;
 
-            Console.ReadLine();
+            while (!conversionPassed)
+            {
+                try
+                {
+                    choice = Convert.ToInt16(operation);
+                    conversionPassed = true;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Merci de saisir uniquement des chiffres.");
+                    operation = Console.ReadLine();
+                    operation = CheckLength(operation, 1);
+                }
+            }
 
-            Console.WriteLine("Interrogation du compte en cours...");
-
-            System.Threading.Thread.Sleep(5000);
-
-            Console.WriteLine("Pour obtenir vos billets, merci de récupérer votre carte.");
+            conversionPassed = false;
+            short previousChoice = -1;
+            do
+            {
+                switch (choice)
+                {
+                    case 1:
+                        previousChoice = choice;
+                        Console.WriteLine("Quel montant désirez-vous retirer ?");
+                        Console.ReadLine();
+                        Console.WriteLine("Interrogation du compte en cours...");
+                        System.Threading.Thread.Sleep(5000);
+                        Console.WriteLine("Pour obtenir vos billets, merci de récupérer votre carte.");
+                        break;
+                    case 2:
+                        Console.WriteLine("Nous sommes désolé, le dépôt d'argent n'est pas encore disponible sur ce DAB.\n");
+                        previousChoice = choice;
+                        OperationChoice(out operation, out choice);                        
+                        break;
+                    default:
+                        Console.WriteLine("Votre choix doit être 1 ou 2 uniquement.\n");
+                        previousChoice = choice;
+                        OperationChoice(out operation, out choice);
+                        break;
+                }
+            } while (choice != 1 || previousChoice != 1);
 
             WaitForEnterKey();
         }
 
-        private static string CheckLength(string codeSecret)
+        private static void OperationChoice(out string operation, out short choice)
         {
-            while (codeSecret.Length != 4)
+            Console.WriteLine("Quel opération souhaitez-vous effectuer ?\n 1. Retrait\n 2. Dépôt\n");
+
+            operation = Console.ReadLine();
+            operation = CheckLength(operation, 1);
+            choice = -1;
+
+            while (!conversionPassed)
             {
-                Console.WriteLine("Merci de saisir 4 chiffres.");
-                codeSecret = Console.ReadLine();
+                try
+                {
+                    choice = Convert.ToInt16(operation);
+                    conversionPassed = true;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Merci de saisir uniquement des chiffres.");
+                    operation = Console.ReadLine();
+                    operation = CheckLength(operation, 1);
+                }
             }
 
-            return codeSecret;
+            conversionPassed = false;
+        }
+
+        /// <summary>
+        /// Permet de vérifier que l'entrée utilisateur est de la longueur attendue.
+        /// </summary>
+        /// <param name="value">La saisie de l'utilisateur.</param>
+        /// <param name="length">La longueur attendue de la saisie de l'utilisateur.</param>
+        /// <returns></returns>
+        private static string CheckLength(string value, int length)
+        {
+            while (value.Length != length)
+            {
+                Console.WriteLine("Merci de saisir 4 chiffres.");
+                value = Console.ReadLine();
+            }
+
+            return value;
         }
 
         /// <summary>
